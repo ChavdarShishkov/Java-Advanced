@@ -31,9 +31,7 @@ public class P10_PredicateParty {
         } else {
             System.out.println(names.toString().replaceAll("([\\[\\]])", "") + " are going to the party!");
         }
-
     }
-
 
     private static void removeName(Predicate<String> predicate) {
         names.removeIf(predicate);
