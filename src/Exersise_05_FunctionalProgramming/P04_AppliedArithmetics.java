@@ -1,4 +1,4 @@
-package Exercise_05_FunctionalProgramming;
+package Exersise_05_FunctionalProgramming;
 
 import java.io.BufferedReader;
 import java.io.IOException;
