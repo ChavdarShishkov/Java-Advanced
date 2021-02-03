@@ -2,16 +2,22 @@ package Exercise_06_DefiningClasses.P03_SpeedRacin;
 
 public class Car {
     private String model;
-    private double fuelAmount;
+    private int fuelAmount;
     private double fuelCostFor1Km;
     private int distanceTraveled;
 
-    public Car(String model, double fuelAmount, double fuelCostFor1Km, int distanceTraveled) {
+    public Car(String model, int fuelAmount, double fuelCostFor1Km, int distanceTraveled) {
         this.model = model;
         this.fuelAmount = fuelAmount;
         this.fuelCostFor1Km = fuelCostFor1Km;
-        this.distanceTraveled = 0;
+        this.distanceTraveled = distanceTraveled;
     }
+
+    public Car(String model, int distanceTraveled) {
+        this.model = model;
+        this.distanceTraveled = distanceTraveled;
+    }
+
 
     public Car(int distanceTraveled) {
         this.distanceTraveled = distanceTraveled;
@@ -29,7 +35,7 @@ public class Car {
         return fuelAmount;
     }
 
-    public void setFuelAmount(double fuelAmount) {
+    public void setFuelAmount(int fuelAmount) {
         this.fuelAmount = fuelAmount;
     }
 
