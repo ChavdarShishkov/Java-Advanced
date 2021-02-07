@@ -2,15 +2,14 @@ package Exercise_06_DefiningClasses.P03_SpeedRacin;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         Set<Car> cars = new LinkedHashSet<>();
-        Set<Car> modelDistanceTraveled = new LinkedHashSet<>();
-
 
         int n = Integer.parseInt(reader.readLine());
         while (n-- > 0) {
@@ -21,7 +20,7 @@ public class Main {
             double fuelCostFor1Km = Double.parseDouble(tokens[2]);
 
 
-            Car car = new Car(model, fuelAmount, fuelCostFor1Km, 0);
+            Car car = new Car(model, fuelAmount, fuelCostFor1Km);
             cars.add(car);
         }
 
@@ -31,10 +30,15 @@ public class Main {
 
             String carModel = tokens[1];
             int kmTraveled = Integer.parseInt(tokens[2]);
-            Car car = new Car(carModel, kmTraveled);
+            for (Car car : cars) {
+                if (car.getModel().equals(carModel)) {
+                    car.Drive(kmTraveled);
+                }
+            }
             s = reader.readLine();
-            modelDistanceTraveled.add(car);
         }
-
+        for (Car car : cars) {
+            System.out.println(car.toString());
+        }
     }
 }
