@@ -22,7 +22,6 @@ public class ListyIterator {
         return index < data.size() - 1;
     }
 
-
     public void print() {
         validatePrint();
         System.out.println(this.data.get(this.index));
@@ -33,5 +32,4 @@ public class ListyIterator {
             throw new IllegalStateException("Invalid Operation!");
         }
     }
-
 }
