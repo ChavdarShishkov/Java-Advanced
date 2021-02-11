@@ -1,3 +1,4 @@
+/*
 package Exercise_06_DefiningClasses.P07_Google;
 
 import java.io.BufferedReader;
@@ -24,7 +25,7 @@ public class Main {
             switch (tokens[1]) {
                 case "company":
                     companies.add(new Company(tokens[0], tokens[2], tokens[3], Double.parseDouble(tokens[4])));
-                    boolean contains = companies.stream().anyMatch(o->o.getName())
+                    boolean contains = companies.stream().anyMatch(o->o.getName());
                     break;
                 case "pokemon":
                     pokemons.add(new Pokemon(tokens[0], tokens[2], tokens[3]));
@@ -44,3 +45,4 @@ public class Main {
         String search = reader.readLine();
     }
 }
+*/
