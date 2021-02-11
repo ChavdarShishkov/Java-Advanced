@@ -19,7 +19,9 @@ public class CustomStack implements Iterable<Integer> {
 
             @Override
             public Integer next() {
-                return null;
+                int element = currentNode.element;
+                currentNode = currentNode.previous;
+                return element;
             }
         };
     }
