@@ -1,4 +1,4 @@
-package Java_Advanced_Exam_25_October_2020.First;
+package Java_Advanced_Exam_25_October_2020.P01_SchegulingProblem;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,8 +13,9 @@ public class Main {
         ArrayDeque<Integer> tasks =
                 Arrays.stream(reader.readLine().split(",\\s+")).map(Integer::parseInt).collect(Collectors.toCollection(ArrayDeque::new));
 
-        ArrayDeque<Integer> threads =
-                Arrays.stream(reader.readLine().split("\\s+")).map(Integer::parseInt).collect(Collectors.toCollection(ArrayDeque::new));
+        ArrayDeque<Integer> threads = new ArrayDeque<>();
+        Arrays.stream(reader.readLine().split("\\s+")).map(Integer::parseInt).forEach(threads::push);
+
 
         int taskToKill = Integer.parseInt(reader.readLine());
 

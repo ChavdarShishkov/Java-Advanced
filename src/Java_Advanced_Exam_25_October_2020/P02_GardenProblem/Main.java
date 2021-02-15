@@ -1,4 +1,4 @@
-package Java_Advanced_Exam_25_October_2020.Second;
+package Java_Advanced_Exam_25_October_2020.P02_GardenProblem;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
