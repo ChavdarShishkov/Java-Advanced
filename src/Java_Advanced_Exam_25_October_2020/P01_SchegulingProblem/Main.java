@@ -18,7 +18,6 @@ public class Main {
 
         int taskToKill = Integer.parseInt(reader.readLine());
 
-
         while (tasks.peek() != taskToKill) {
             int currentThread = threads.peekFirst();
             int currentTask = tasks.peekFirst();
