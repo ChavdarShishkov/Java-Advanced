@@ -10,21 +10,24 @@ public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        ArrayDeque<Integer> tasks =
-                Arrays.stream(reader.readLine().split(",\\s+")).map(Integer::parseInt).collect(Collectors.toCollection(ArrayDeque::new));
+        ArrayDeque<Integer> tasks = new ArrayDeque<>();
+        Arrays.stream(reader.readLine().split(",\\s+")).map(Integer::parseInt).forEach(tasks::push);
 
-        ArrayDeque<Integer> threads = new ArrayDeque<>();
-        Arrays.stream(reader.readLine().split("\\s+")).map(Integer::parseInt).forEach(threads::push);
-
+        ArrayDeque<Integer> threads =
+                Arrays.stream(reader.readLine().split("\\s+")).map(Integer::parseInt).collect(Collectors.toCollection(ArrayDeque::new));
 
         int taskToKill = Integer.parseInt(reader.readLine());
 
+
         while (tasks.peek() != taskToKill) {
-            if (threads.peek() >= tasks.peek()) {
-                tasks.pop();
-                threads.poll();
+            int currentThread = threads.peekFirst();
+            int currentTask = tasks.peekFirst();
+
+            if (currentThread >= currentTask) {
+                tasks.poll();
+                threads.pop();
             } else {
-                threads.poll();
+                threads.pop();
             }
         }
 
