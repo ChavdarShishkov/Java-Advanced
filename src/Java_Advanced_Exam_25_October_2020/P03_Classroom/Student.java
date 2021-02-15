@@ -1,4 +1,4 @@
-package Java_Advanced_Exam_25_October_2020.Third.classroom;
+package Java_Advanced_Exam_25_October_2020.P03_Classroom;
 
 public class Student {
     private String firstName;
@@ -9,9 +9,6 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.bestSubject = bestSubject;
-    }
-
-    public Student() {
     }
 
     public String getFirstName() {
@@ -28,6 +25,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", bestSubject='" + bestSubject + '\'' + '}';
+        return String.format("Student: First Name= %s, Last Name= %s, Best Subject= %s", firstName, lastName,
+                bestSubject);
     }
 }
