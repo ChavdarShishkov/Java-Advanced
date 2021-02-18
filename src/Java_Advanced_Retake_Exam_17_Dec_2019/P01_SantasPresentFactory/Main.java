@@ -4,107 +4,109 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class Main {
 
-    private static int dolls = 0;
-    private static int woodenTrains = 0;
-    private static int teddyBears = 0;
-    private static int bicycles = 0;
-
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        ArrayDeque<Integer> boxOfMaterialsStack = new ArrayDeque<>();
-        Arrays.stream(reader.readLine().split("\\s+")).map(Integer::parseInt).forEach(boxOfMaterialsStack::push);
+        ArrayDeque<Integer> materialStack = new ArrayDeque<>();
+        Arrays.stream(reader.readLine().split("\\s+")).map(Integer::parseInt).forEach(materialStack::push);
 
-        ArrayDeque<Integer> magicLevelQueue =
+        ArrayDeque<Integer> magicValuesQueue =
                 Arrays.stream(reader.readLine().split("\\s+")).map(Integer::parseInt).collect(Collectors.toCollection(ArrayDeque::new));
 
+        TreeMap<String, Integer> toys = new TreeMap<>();
 
-        boolean allPresents = false;
+        while (magicValuesQueue.size() > 0 && materialStack.size() > 0) {
+            int values = magicValuesQueue.peek();
+            int boxes = materialStack.peek();
+            int product = values * boxes;
 
-        while (!boxOfMaterialsStack.isEmpty() && !magicLevelQueue.isEmpty()) {
-            int material = boxOfMaterialsStack.peek();
-            int magicLevel = magicLevelQueue.peek();
+            if (product < 0) {
+                int result = values + boxes;
+                magicValuesQueue.poll();
+                materialStack.pop();
+                materialStack.push(result);
 
-            int total = material * magicLevel;
-            if (total < 0) {
-                int sum = material + magicLevel;
-                boxOfMaterialsStack.pop();
-                magicLevelQueue.poll();
-                boxOfMaterialsStack.push(sum);
-                continue;
-            }
-            if (!checkCraftedIItems(total) && total > 0) {
-                magicLevelQueue.poll();
-                boxOfMaterialsStack.pop();
-                boxOfMaterialsStack.push(material + 15);
-                continue;
-            }
-            if (material == 0) {
-                boxOfMaterialsStack.pop();
-            } else if (magicLevel == 0) {
-                magicLevelQueue.poll();
-            }
+            } else if (boxes == 0 || values == 0) {
+                if (boxes == 0) {
+                    materialStack.pop();
+                }
+                if (values == 0) {
+                    magicValuesQueue.poll();
+                }
 
-            if (checkCraftedIItems(total)) {
-                craftedItems(total);
-                magicLevelQueue.poll();
-                boxOfMaterialsStack.pop();
-            }
+            } else if (product == 150 || product == 250 || product == 300 || product == 400) {
+                String gift;
+                if (product == 150) {
 
-            if (dolls > 1 && woodenTrains > 1 || teddyBears > 1 && bicycles > 1) {
-                allPresents = true;
+                    gift = "Doll";
+
+                    magicValuesQueue.poll();
+                    materialStack.pop();
+
+                    toys.putIfAbsent(gift, 0);
+                    toys.put(gift, toys.get(gift) + 1);
+
+                } else if (product == 250) {
+
+                    gift = "Wooden train";
+
+                    magicValuesQueue.poll();
+                    materialStack.pop();
+
+                    toys.putIfAbsent(gift, 0);
+                    toys.put(gift, toys.get(gift) + 1);
+
+                } else if (product == 300) {
+                    gift = "Teddy bear";
+                    magicValuesQueue.poll();
+                    materialStack.pop();
+                    toys.putIfAbsent(gift, 0);
+                    toys.put(gift, toys.get(gift) + 1);
+                } else {
+                    gift = "Bicycle";
+                    magicValuesQueue.poll();
+                    materialStack.pop();
+                    toys.putIfAbsent(gift, 0);
+                    toys.put(gift, toys.get(gift) + 1);
+                }
+            } else if (product > 0) {
+                magicValuesQueue.poll();
+                boxes += 15;
+                materialStack.pop();
+                materialStack.push(boxes);
             }
         }
-        if (allPresents) {
+
+        if (toys.containsKey("Doll") && toys.containsKey("Wooden train")) {
             System.out.println("The presents are crafted! Merry Christmas!");
+
+        } else if (toys.containsKey("Teddy bear") && toys.containsKey("Bicycle")) {
+            System.out.println("The presents are crafted! Merry Christmas!");
+
         } else {
             System.out.println("No presents this Christmas!");
         }
-        if (!boxOfMaterialsStack.isEmpty()) {
-            System.out.println("Materials left: " + getElementsInfo(boxOfMaterialsStack));
-        } else if (!magicLevelQueue.isEmpty()) {
-            System.out.println("Magic left: " + getElementsInfo(magicLevelQueue));
+
+        if (materialStack.size() > 0) {
+            System.out.println("Materials left: " + getElementsInfo(materialStack));
         }
 
-        if (bicycles > 1) {
-            System.out.println("Bicycle: " + bicycles);
-        } else if (dolls > 1) {
-            System.out.println("Doll: " + dolls);
-        } else if (teddyBears > 1) {
-            System.out.println("Teddy bear: " + teddyBears);
-        } else if (woodenTrains > 1) {
-            System.out.println("Wooden train: " + woodenTrains);
+        if (magicValuesQueue.size() > 0) {
+            System.out.println("Magic left: " + getElementsInfo(magicValuesQueue));
         }
 
+        for (Map.Entry<String, Integer> entry : toys.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 
     private static String getElementsInfo(ArrayDeque<Integer> deque) {
         return deque.stream().map(String::valueOf).collect(Collectors.joining(", "));
-    }
-
-    private static boolean checkCraftedIItems(int total) {
-        if (total == 150) {
-            return true;
-        } else if (total == 250) {
-            return true;
-        } else if (total == 300) {
-            return true;
-        } else return total == 400;
-    }
-
-    private static void craftedItems(int total) {
-        if (total == 150) {
-            dolls++;
-        } else if (total == 250) {
-            woodenTrains++;
-        } else if (total == 300) {
-            teddyBears++;
-        } else if (total == 400) {
-            bicycles++;
-        }
     }
 }
