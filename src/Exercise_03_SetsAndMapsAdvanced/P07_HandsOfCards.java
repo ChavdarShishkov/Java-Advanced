@@ -25,14 +25,14 @@ public class P07_HandsOfCards {
             input = sc.nextLine();
         }
 
-        String regex = "([0-9]+|[JQKA])([CHDS]{1})";
+        String regex = "([0-9]+|[JQKA])([CHDS])";
 
         Pattern pattern = Pattern.compile(regex);
 
         for (Map.Entry<String, Set<String>> entry : playersCards.entrySet()) {
             String name = entry.getKey();
             int playerScore = 0;
-            for (String card : entry.getValue()) {
+            for (String ignored : entry.getValue()) {
                 Matcher matcher = pattern.matcher(regex);
 
                 if (matcher.find()) {
@@ -52,47 +52,22 @@ public class P07_HandsOfCards {
     }
 
     private static int getMultiplier(String type) {
-        int multiplier = 0;
-        switch (type) {
-            case "S":
-                multiplier = 4;
-                break;
-
-            case "H":
-                multiplier = 3;
-                break;
-
-            case "D":
-                multiplier = 2;
-                break;
-
-            case "C":
-                multiplier = 1;
-                break;
-        }
-        return multiplier;
+        return switch (type) {
+            case "S" -> 4;
+            case "H" -> 3;
+            case "D" -> 2;
+            case "C" -> 1;
+            default -> 0;
+        };
     }
 
     private static int getValueByPower(String power) {
-        int value;
-        switch (power) {
-            case "J":
-                value = 11;
-                break;
-            case "Q":
-                value = 12;
-                break;
-            case "K":
-                value = 13;
-                break;
-            case "A":
-                value = 14;
-                break;
-            default:
-                value = Integer.parseInt(power);
-                break;
-
-        }
-        return value;
+        return switch (power) {
+            case "J" -> 11;
+            case "Q" -> 12;
+            case "K" -> 13;
+            case "A" -> 14;
+            default -> Integer.parseInt(power);
+        };
     }
 }

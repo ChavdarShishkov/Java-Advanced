@@ -39,9 +39,9 @@ public class P12_SrubskoUnleashed {
             command = sc.nextLine();
         }
 
-        venues.entrySet().forEach(venue -> {
-            System.out.println(venue.getKey());
-            venues.get(venue.getKey()).entrySet().stream().sorted(Map.Entry.comparingByValue(Collections.reverseOrder())).forEach(singer -> System.out.println("#  " + singer.getKey() + " -> " + singer.getValue()));
+        venues.forEach((key, value) -> {
+            System.out.println(key);
+            venues.get(key).entrySet().stream().sorted(Map.Entry.comparingByValue(Collections.reverseOrder())).forEach(singer -> System.out.println("#  " + singer.getKey() + " -> " + singer.getValue()));
         });
     }
 
