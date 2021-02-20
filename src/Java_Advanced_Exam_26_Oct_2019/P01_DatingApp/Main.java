@@ -65,7 +65,6 @@ public class Main {
                 continue;
             }
 
-
             if (male == female) {
                 matches++;
                 maleQueue.remove();
